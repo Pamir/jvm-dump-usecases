@@ -22,4 +22,4 @@ WORKDIR /my-fault
 COPY --from=maven target/application.jar ./
 
 # set the startup command to run your binary
-ENTRYPOINT ["java", "-jar", "./target/application.jar"]
+ENTRYPOINT ["java", "-jar", "application.jar"]
