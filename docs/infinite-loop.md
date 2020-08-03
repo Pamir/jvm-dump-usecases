@@ -41,7 +41,7 @@ ps aux
 
 In this example PID is "1"
 
-4. Dump call stack of java  process with kill -3:
+4. Dump all call stacks of java  process id 1 with kill -3:
 ```bash
 kill -3 1
 sleep 3

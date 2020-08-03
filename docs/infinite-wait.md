@@ -39,7 +39,7 @@ ps aux
 
 In this example PID is "1"
 
-4. Dump call stack of java  process with kill -3:
+4. Dump all call stack of java process  with using kill -3. Process Id 1 will print all the call stack on the default output. We can copy this output to another txt file or we can find the problematic thread and source code by searching on the default output.
 ```bash
 kill -3 1
 sleep 3
@@ -49,7 +49,7 @@ sleep 3
 kill -3 1
 ```
 
-5.  Print the main thread
+5.  Copy the main thread to a txt file.
 ```
 "main" #1 prio=5 os_prio=0 tid=0x00007f292000a800 nid=0x6 in Object.wait() [0x00007f292a12b000]
    java.lang.Thread.State: WAITING (on object monitor)
@@ -64,7 +64,7 @@ kill -3 1
         at com.pamir.dump.cases.Application.main(Application.java:24)
 ```
 
-6. Print the Blocked Thread
+6. Copy te the Blocked Thread to a txt file and investigate the problem. As it is seen from the output, InfiniteWait.java at line 12 it is waiting an object to be released. 
 
 ```
 "Thread-0" #8 prio=5 os_prio=0 tid=0x00007f2920209800 nid=0x11 waiting for monitor entry [0x00007f290ca9f000]
