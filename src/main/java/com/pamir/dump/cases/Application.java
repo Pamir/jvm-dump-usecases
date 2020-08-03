@@ -6,7 +6,7 @@ public class Application {
             dumpAndExit();
         }
 
-        String problem = args[1];
+        String problem = args[0];
         Case problemCase = null;
         switch (problem) {
             case "InfiniteLoop":
