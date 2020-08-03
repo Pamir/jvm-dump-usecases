@@ -3,13 +3,10 @@ package com.pamir.dump.cases;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-import javax.print.attribute.SupportedValuesAttribute;
 
 import com.pamir.dump.cases.utils.BusyIOUtils;
-import com.pamir.dump.cases.utils.ThreadUtils;
-import com.pamir.dump.cases.utils.WebPageLoader;
+
 
 public class InfiniteLoop implements Case {
 
