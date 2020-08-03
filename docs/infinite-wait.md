@@ -25,7 +25,7 @@ docker run --rm -it \
 	--net=container:741d07985f66 \
 	--pid=container:741d07985f66 \
 	-v /tmp:/tmp \
-   --privileged
+        --privileged \
 	adriantodt/alpine-zlib-jattach \
 	/bin/sh
 ```
