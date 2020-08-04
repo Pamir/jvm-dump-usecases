@@ -17,7 +17,7 @@ public class MemoryLeak implements Case {
             public void run() {
                 while (true) {
                     leakyCache.add(new byte[512 * 1024]);
-                    ThreadUtils.sleepUninterruptedly(1000);
+                    ThreadUtils.sleepUninterruptedly(300);
                 }
 
             }
