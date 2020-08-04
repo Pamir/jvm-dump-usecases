@@ -3,7 +3,7 @@ Inspired From https://github.com/6opuc/lldb-netcore-use-cases/
 ### Cases:
 - [Low Cpu Hang](docs/infinite-wait.md)
 - [High Cpu Hang](docs/infinit-loop.md)
-- Memory Leak 
+- [Memory Leak](docs/memoryleak.md) 
 - Single Thread High Memory Usage
 - Full GC Case
 - Unhandled Exception
