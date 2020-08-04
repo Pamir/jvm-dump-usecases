@@ -25,6 +25,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <version>4.5.12</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>

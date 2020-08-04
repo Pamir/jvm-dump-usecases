@@ -18,6 +18,9 @@ public class Application {
             case "MemoryLeak":
                 problemCase = new MemoryLeak();
                 break;
+            case "SingleThreadHighMemoryUsage":
+                problemCase = new SingleThreadHighMemoryUsage();
+                break;
             default:
                 dumpAndExit();
         }
