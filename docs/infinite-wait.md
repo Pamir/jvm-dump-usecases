@@ -32,7 +32,7 @@ docker run --rm -it \
 
 where 741d07985f66 is id of container with our application.
 
-Find PID of dotnet process we need to analyze(java application.jar ...):
+Find PID of java process we need to analyze(java application.jar ...):
 ```bash
 ps aux
 ```
