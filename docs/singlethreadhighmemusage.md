@@ -9,7 +9,7 @@ docker run -it --rm  pamir/jvm-cases SingleThreadHighMemoryUsage
 ```
 
 
-2. Check, that our app is idle(%CPU=~0.0):
+2. Check, that our app is not idle(%CPU > 0.0):
 ```bash
 top -c -p $(pgrep -d',' -f java)
 ```

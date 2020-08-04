@@ -21,6 +21,9 @@ public class Application {
             case "SingleThreadHighMemoryUsage":
                 problemCase = new SingleThreadHighMemoryUsage();
                 break;
+            case "ThreadLeak":
+                problemCase = new ThreadLeak();
+                break;
             default:
                 dumpAndExit();
         }

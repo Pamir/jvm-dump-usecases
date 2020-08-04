@@ -9,7 +9,7 @@ Inspired From https://github.com/6opuc/lldb-netcore-use-cases/
 - Unhandled Exception
 - Unmanaged Memory leak
 - Classloader Leak
-- Thread Leak
+- [Thread Leak](docs/threadleak.md)
 - Log4j Thread Blocking case
 - JVM Finalizer Case
 - Connection Pool Exhaustion
