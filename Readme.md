@@ -8,7 +8,7 @@ Inspired From https://github.com/6opuc/lldb-netcore-use-cases/
 - Full GC Case
 - Unhandled Exception
 - Unmanaged Memory leak
-- Classloader Leak
+- [Classloader Leak](docs/classloaderleak.md)
 - [Thread Leak](docs/threadleak.md)
 - Log4j Thread Blocking case
 - JVM Finalizer Case
