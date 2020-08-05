@@ -10,6 +10,8 @@ import java.util.List;
 import com.pamir.dump.cases.domain.Counter;
 import com.pamir.dump.cases.domain.ICounter;
 
+import org.dom4j.DocumentHelper;
+
 public class ClassloaderLeak implements Case {
 
    public static ICounter newInstance() {
@@ -39,7 +41,7 @@ public class ClassloaderLeak implements Case {
       String[] classPaths = classPath.split(";");
       List<URL> urlList = new ArrayList<>();
       for (String clsPath : classPaths) {
-         urlList.add(new URL(String.format("file:%s", clsPath.replace("\\", "//"))));
+         urlList.add(new URL(String.format("file:%s", clsPath.replace("\\", "/"))));
       }
       URL[] urls = new URL[classPaths.length];
       return urlList.toArray(urls);
@@ -49,14 +51,9 @@ public class ClassloaderLeak implements Case {
    public void run() {
       ICounter root = new Counter();
       ICounter example1 = ClassloaderLeak.newInstance().copy(root);
-
-      while (true) {
-         ICounter example2 = ClassloaderLeak.newInstance().copy(example1);
-
-         System.out.println("1) " + example1.message() + " = " + example1.plusPlus());
-         System.out.println("2) " + example2.message() + " = " + example2.plusPlus());
-         System.out.println();
-      }
+      ThreadLocal t = new ThreadLocal<>();
+      t.set(root);
+      ICounter example2 = ClassloaderLeak.newInstance().copy(example1);
 
    }
 }

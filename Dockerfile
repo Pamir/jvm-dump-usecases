@@ -14,6 +14,7 @@ COPY ./src ./src
 RUN mvn package
 
 FROM gcr.io/distroless/java:8
+ENV JVM_ARGS=""
 
 # set deployment directory
 WORKDIR /my-fault
@@ -22,4 +23,4 @@ WORKDIR /my-fault
 COPY --from=maven target/application.jar ./
 
 # set the startup command to run your binary
-ENTRYPOINT ["java", "-jar", "application.jar"]
+ENTRYPOINT ["java","${JVM_ARGS}", "-jar", "application.jar"]

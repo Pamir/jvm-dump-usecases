@@ -31,6 +31,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
     </dependency>
+    <dependency>
+      <groupId>se.jiderhamn</groupId>
+      <artifactId>classloader-leak-test-framework</artifactId>
+      <version>1.1.1</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -38,6 +44,20 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+    <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>67.1</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>

@@ -5,7 +5,7 @@ public class Counter implements ICounter {
 	private int counter;
 	private ILeak leak;
 
-	private static final long[] cache = new long[50000000];
+	private static final long[] cache = new long[5000000];
 
 	@Override
 	public String message() {
