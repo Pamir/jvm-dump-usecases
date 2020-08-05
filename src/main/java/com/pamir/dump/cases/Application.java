@@ -27,6 +27,9 @@ public class Application {
             case "ClassloaderLeak":
                 problemCase = new ClassloaderLeak();
                 break;
+            case "Log4j":
+                problemCase = new Log4JCase();
+                break;
             default:
                 dumpAndExit();
         }
