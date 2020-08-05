@@ -24,6 +24,9 @@ public class Application {
             case "ThreadLeak":
                 problemCase = new ThreadLeak();
                 break;
+            case "ClassloaderLeak":
+                problemCase = new ClassloaderLeak();
+                break;
             default:
                 dumpAndExit();
         }
