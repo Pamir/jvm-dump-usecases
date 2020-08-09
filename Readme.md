@@ -5,13 +5,12 @@ Inspired From https://github.com/6opuc/lldb-netcore-use-cases/
 - [High Cpu Hang](docs/infinite-loop.md)
 - [Memory Leak](docs/memoryleak.md) 
 - [Single Thread High Memory Usage](docs/singlethreadhighmemusage.md)
-- Full GC Case
 - [Unhandled Exception](docs/crashonerror.md)
 - Unmanaged Memory leak
 - [Classloader Leak](docs/classloaderleak.md)
 - [Thread Leak](docs/threadleak.md)
 - [Log4j  Appenders Thread Blocking case](docs/log4j.md)
-- JVM Finalizer Case
+- [JVM Finalizer Case](docs/finalizerleak.md)
 
 
 #### References

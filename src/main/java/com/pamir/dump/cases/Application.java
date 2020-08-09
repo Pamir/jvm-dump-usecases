@@ -32,6 +32,8 @@ public class Application {
                 break;
             case "CrashOnError":
                 problemCase = new CrashOnError();
+            case "NonFinalized":
+                problemCase = new FinalizerCase();
                 break;
             default:
                 dumpAndExit();
