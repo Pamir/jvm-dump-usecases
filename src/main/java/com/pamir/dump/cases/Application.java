@@ -30,6 +30,9 @@ public class Application {
             case "Log4j":
                 problemCase = new Log4JCase();
                 break;
+            case "CrashOnError":
+                problemCase = new CrashOnError();
+                break;
             default:
                 dumpAndExit();
         }
