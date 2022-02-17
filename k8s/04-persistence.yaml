@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azurefile
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: file.csi.azure.com
+    readOnly: false
+    volumeHandle: unique-volumeid  # make sure this volumeid is unique in the cluster
+    volumeAttributes:
+      resourceGroup: cloud-shell-storage-northeurope  # optional, only set this when storage account is not in the same resource group as agent node
+      shareName: memorydumps
+    nodeStageSecretRef:
+      name: azure-secret
+      namespace: default
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - uid=0
+    - gid=0
+    - mfsymlinks
+    - cache=strict
+    - nosharesock
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: jvm-usecases
+    name: jvm-usecases
+    internalVersion: 0.0.1
+  name: jvm-usecases
+spec:
+  volumes:
+  - name: azure
+    persistentVolumeClaim:
+      claimName: azurefile
+  shareProcessNamespace: true
+  containers:
+  - image: pamir/jvm-cases:0.0.1
+    imagePullPolicy: IfNotPresent
+    name: jvm-usecases
+    args:
+      - MemoryLeak
+    ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    resources: {}
+    volumeMounts:
+      - name: azure
+        mountPath: /mnt/azure
+  - image: adriantodt/alpine-zlib-jattach
+    command: [ "/bin/sh", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    name: jattach
+    resources: {}
+    securityContext:
+      privileged: true
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
