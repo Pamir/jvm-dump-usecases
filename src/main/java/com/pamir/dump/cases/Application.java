@@ -32,8 +32,33 @@ public class Application {
                 break;
             case "CrashOnError":
                 problemCase = new CrashOnError();
+                break;
             case "NonFinalized":
                 problemCase = new FinalizerCase();
+                break;
+            case "Deadlock":
+                problemCase = new Deadlock();
+                break;
+            case "GCThrashing":
+                problemCase = new GCThrashing();
+                break;
+            case "MetaspaceOOM":
+                problemCase = new MetaspaceOOM();
+                break;
+            case "OffHeapLeak":
+                problemCase = new OffHeapLeak();
+                break;
+            case "ConnectionPoolExhaustion":
+                problemCase = new ConnectionPoolExhaustion();
+                break;
+            case "ThreadPoolSaturation":
+                problemCase = new ThreadPoolSaturation();
+                break;
+            case "StackOverflow":
+                problemCase = new StackOverflowCase();
+                break;
+            case "FileDescriptorLeak":
+                problemCase = new FileDescriptorLeak();
                 break;
             default:
                 dumpAndExit();
@@ -44,8 +69,12 @@ public class Application {
 
     private static void dumpAndExit() {
         System.err.println("Usage : application.jar <Problem>");
-        System.err.println("Probems: InfiniteLoop | InfiniteWait | MemoryLeak | UnhandledException");
-        System.err.println("Example Usage: application.jar InfiniteWait");
+        System.err.println("Available Problems:");
+        System.err.println("  InfiniteLoop | InfiniteWait | MemoryLeak | SingleThreadHighMemoryUsage");
+        System.err.println("  ThreadLeak | ClassloaderLeak | Log4j | CrashOnError | NonFinalized");
+        System.err.println("  Deadlock | GCThrashing | MetaspaceOOM | OffHeapLeak");
+        System.err.println("  ConnectionPoolExhaustion | ThreadPoolSaturation | StackOverflow | FileDescriptorLeak");
+        System.err.println("Example Usage: application.jar Deadlock");
         System.exit(-1);
     }
 }
