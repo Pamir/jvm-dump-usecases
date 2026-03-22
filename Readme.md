@@ -37,6 +37,14 @@ kubectl apply -f k8s/01-infinitewait.yaml
 | 8 | **Log4j Appender Blocking** | 🟢 Normal | 🟢 Normal | Thread Dump (BLOCKED) | [📖](docs/log4j.md) |
 | 9 | **Finalizer Queue Leak** | 🟢 Normal | 🔴 Growing | Heap Dump (Finalizer) | [📖](docs/finalizerleak.md) |
 | 10 | Unmanaged (Native) Memory Leak | 🟢 Normal | 🔴 RSS growing | NMT + `pmap` | — |
+| 11 | **Deadlock** | 🟢 Low | 🟢 Normal | Thread Dump (`jstack`) | [📖](docs/deadlock.md) |
+| 12 | **GC Thrashing** | 🔴 High (GC) | 🔴 Full | GC Logs + `jstat` | [📖](docs/gc-thrashing.md) |
+| 13 | **Metaspace OOM** | 🟢 Normal | 🔴 Metaspace | NMT + class histogram | [📖](docs/metaspace-oom.md) |
+| 14 | **Off-Heap Leak** | 🟢 Normal | 🔴 RSS growing | NMT + `pmap` | [📖](docs/offheap-leak.md) |
+| 15 | **Connection Pool Exhaustion** | 🟢 Normal | 🟢 Normal | Thread Dump (WAITING) | [📖](docs/connection-pool-exhaustion.md) |
+| 16 | **Thread Pool Saturation** | 🟡 Medium | 🟢 Normal | Thread Dump + metrics | [📖](docs/threadpool-saturation.md) |
+| 17 | **Stack Overflow** | 🟢 Normal | 🟢 Normal | Stack trace analysis | [📖](docs/stackoverflow.md) |
+| 18 | **File Descriptor Leak** | 🟢 Normal | 🟢 Normal | `lsof` + `/proc/fd` | [📖](docs/filedescriptor-leak.md) |
 
 ---
 
@@ -44,23 +52,23 @@ kubectl apply -f k8s/01-infinitewait.yaml
 
 ### 🔴 High Priority
 
-- [ ] **Deadlock Detection** — Two threads holding locks and waiting for each other. Diagnose with `jstack` (shows "Found one Java-level deadlock"). Classic producer-consumer deadlock scenario.
+- [x] **Deadlock Detection** — Two threads holding locks and waiting for each other. Diagnose with `jstack` (shows "Found one Java-level deadlock"). Classic producer-consumer deadlock scenario.
 
-- [ ] **GC Thrashing / GC Overhead Limit** — Application spending >98% time in GC with <2% heap recovered. Diagnose with GC logs (`-Xlog:gc*`), GCViewer. Trigger `java.lang.OutOfMemoryError: GC overhead limit exceeded`.
+- [x] **GC Thrashing / GC Overhead Limit** — Application spending >98% time in GC with <2% heap recovered. Diagnose with GC logs (`-Xlog:gc*`), GCViewer. Trigger `java.lang.OutOfMemoryError: GC overhead limit exceeded`.
 
-- [ ] **Metaspace / PermGen OOM** — Metaspace exhaustion from dynamic class generation (Groovy scripts, CGLIB proxies, excessive reflection). Diagnose with `-XX:+HeapDumpOnOutOfMemoryError` and class histogram.
+- [x] **Metaspace / PermGen OOM** — Metaspace exhaustion from dynamic class generation (Groovy scripts, CGLIB proxies, excessive reflection). Diagnose with `-XX:+HeapDumpOnOutOfMemoryError` and class histogram.
 
-- [ ] **Direct ByteBuffer / Off-Heap Leak** — Native memory leak via `ByteBuffer.allocateDirect()` or NIO channels. RSS grows but heap looks fine. Diagnose with NMT (`-XX:NativeMemoryTracking=detail`) and `jcmd VM.native_memory`.
+- [x] **Direct ByteBuffer / Off-Heap Leak** — Native memory leak via `ByteBuffer.allocateDirect()` or NIO channels. RSS grows but heap looks fine. Diagnose with NMT (`-XX:NativeMemoryTracking=detail`) and `jcmd VM.native_memory`.
 
-- [ ] **Connection Pool Exhaustion** — Database connection pool (HikariCP/C3P0) fully consumed. Threads stuck waiting for connection. Diagnose with thread dump (waiting on pool) + pool metrics.
+- [x] **Connection Pool Exhaustion** — Database connection pool (HikariCP/C3P0) fully consumed. Threads stuck waiting for connection. Diagnose with thread dump (waiting on pool) + pool metrics.
 
 ### 🟡 Medium Priority
 
-- [ ] **Thread Pool Saturation** — `ThreadPoolExecutor` with bounded queue full. Tasks rejected with `RejectedExecutionException`. Diagnose with thread dump (all pool threads RUNNABLE) + JMX metrics.
+- [x] **Thread Pool Saturation** — `ThreadPoolExecutor` with bounded queue full. Tasks rejected with `RejectedExecutionException`. Diagnose with thread dump (all pool threads RUNNABLE) + JMX metrics.
 
 - [ ] **Excessive Object Creation (Allocation Pressure)** — High allocation rate causing frequent young GC. Short-lived objects dominating Eden space. Diagnose with allocation profiling (JFR/async-profiler).
 
-- [ ] **Stack Overflow** — Deep recursion causing `StackOverflowError`. Diagnose with `-Xss` tuning, thread dump shows deep call stack.
+- [x] **Stack Overflow** — Deep recursion causing `StackOverflowError`. Diagnose with `-Xss` tuning, thread dump shows deep call stack.
 
 - [ ] **String/StringBuilder Abuse** — Massive String concatenation in loops creating GC pressure. Compare `String +=` vs `StringBuilder` vs `String.join()`. Diagnose with allocation profiler.
 
@@ -76,7 +84,7 @@ kubectl apply -f k8s/01-infinitewait.yaml
 
 - [ ] **TLAB Resizing / Allocation Contention** — Multi-threaded allocation contention outside TLABs. Diagnose with `-XX:+PrintTLAB` and JFR.
 
-- [ ] **File Descriptor Leak** — `java.io.IOException: Too many open files`. Streams/connections opened but never closed. Diagnose with `lsof -p <pid>` and `/proc/<pid>/fd`.
+- [x] **File Descriptor Leak** — `java.io.IOException: Too many open files`. Streams/connections opened but never closed. Diagnose with `lsof -p <pid>` and `/proc/<pid>/fd`.
 
 - [ ] **DNS Resolution Hang** — `InetAddress.getByName()` blocking under load. JVM DNS caching issues (`networkaddress.cache.ttl`). Thread dump shows threads stuck in DNS resolution.
 
